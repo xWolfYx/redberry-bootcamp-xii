@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-secondary: #A9A9A9;
+  --color-disabled: #505261;
+
+  --color-card: #1E2031;
+  --color-page: #070C1C;
+  --color-raised: #2A2C3D;
+
+  --color-tint-red: rgba(236, 48, 19, 0.1);
+  --color-tint-white: rgba(255, 255, 255, 0.1);
+  --color-tint-green: rgba(74, 222, 128, 0.1);
+
+  --color-custom-red: #EC3013;
+  --color-custom-green: #4ADE80;
+  --color-custom-orange: #E27E04;
+}
+
 body {
   font-family: "Archivo", sans-serif;
+  background-color: var(--color-card)
 }
