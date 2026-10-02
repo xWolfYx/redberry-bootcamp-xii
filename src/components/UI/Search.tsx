@@ -7,7 +7,7 @@ export default function Search() {
 
 	return (
 		<div className="relative">
-			<IoIosSearch className="top-1/2 left-2 z-100 absolute size-3.5 text-white -translate-y-1/2" />
+			<IoIosSearch className="top-1/2 left-2 z-1 absolute size-3.5 text-white -translate-y-1/2" />
 			<input
 				type="search"
 				placeholder="Search films and live events"
