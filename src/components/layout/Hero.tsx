@@ -102,7 +102,9 @@ export default function Hero() {
 								<TbTicketFilled size={16} className="-rotate-45" />
 								Buy tickets
 							</Button>
-							<Button className="bg-tint-white text-white">All sessions</Button>
+							<Button className="bg-tint-white hover:bg-secondary text-white transition duration-150">
+								All sessions
+							</Button>
 						</div>
 					</div>
 
