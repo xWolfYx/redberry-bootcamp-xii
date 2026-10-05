@@ -1,7 +1,7 @@
+import { Timer } from "lucide-react";
 import { useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { LuTimer } from "react-icons/lu";
-import { TbTicket } from "react-icons/tb";
+import { TbTicket, TbTicketFilled } from "react-icons/tb";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
@@ -84,7 +84,7 @@ export default function Hero() {
 								{activeMovie?.ageRating.code}
 							</p>
 							<p className="flex items-center gap-1 bg-tint-white px-3 py-1.5 rounded-full text-[12px]">
-								<LuTimer />
+								<Timer size={14} />
 								{activeMovie?.runtimeMinutes} Min
 							</p>
 							{activeMovie?.formats.map((format) => (
