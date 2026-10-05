@@ -18,7 +18,7 @@ export default function ComingSoon() {
 	}, []);
 
 	return (
-		<section className="relative px-17.5 overflow-hidden">
+		<section className="relative mb-44.25 px-17.5 overflow-hidden">
 			<div className="top-0 right-0 bottom-0 left-[80%] absolute bg-linear-to-l from-page to-transparent" />
 			<div className="flex justify-between">
 				<p className="mb-6 font-bold text-white uppercase">Coming soon...</p>
