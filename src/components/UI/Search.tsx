@@ -1,13 +1,12 @@
+import { SearchIcon, X } from "lucide-react";
 import { useState } from "react";
-import { IoIosSearch } from "react-icons/io";
-import { RxCross2 } from "react-icons/rx";
 
 export default function Search() {
 	const [search, setSearch] = useState("");
 
 	return (
 		<div className="relative">
-			<IoIosSearch className="top-1/2 left-2 z-1 absolute size-3.5 text-white -translate-y-1/2" />
+			<SearchIcon className="top-1/2 left-2 z-1 absolute size-3.5 text-white -translate-y-1/2" />
 			<input
 				type="search"
 				placeholder="Search films and live events"
@@ -18,10 +17,10 @@ export default function Search() {
 			{search.length > 0 && (
 				<button
 					type="button"
-					className="top-1/2 right-2 absolute bg-tint-white rounded-full size-6 text-white -translate-y-1/2 cursor-pointer"
+					className="top-1/2 right-2 absolute flex justify-center items-center bg-tint-white rounded-full size-6 text-white -translate-y-1/2 cursor-pointer"
 					onClick={() => setSearch("")}
 				>
-					<RxCross2 className="w-full" />
+					<X size={14} strokeWidth={3} />
 				</button>
 			)}
 		</div>
