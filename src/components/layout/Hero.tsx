@@ -99,7 +99,8 @@ export default function Hero() {
 						<p className="mb-5 text-[14px]">{activeMovie?.synopsis}</p>
 						<div className="flex gap-2.5">
 							<Button className="bg-custom-red text-white">
-								<TbTicket /> Buy tickets
+								<TbTicketFilled size={16} className="-rotate-45" />
+								Buy tickets
 							</Button>
 							<Button className="bg-tint-white text-white">All sessions</Button>
 						</div>
