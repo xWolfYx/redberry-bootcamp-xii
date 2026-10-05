@@ -44,8 +44,13 @@ function ComingSoonCard({ movie }) {
 				className="rounded-[14px] w-1/2 object-cover"
 			/>
 			<div className="w-50.5">
-				<p className="text-[12px] text-custom-red uppercase">In cinemas</p>
-				<p className="text-[12px] 1.75">{movie.title}</p>
+				<p className="mb-0.5 text-[12px] text-custom-red uppercase">
+					In cinemas{" "}
+					{new Date(movie.releaseDate).toLocaleString("en-GB", {
+						month: "long",
+						day: "numeric",
+					})}
+				</p>
 				<div className="flex flex-col">
 					<div className="flex gap-1 mb-1.75 text-[12px] text-secondary">
 						<p>{movie.genres[0].name}</p>
