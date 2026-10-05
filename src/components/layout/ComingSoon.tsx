@@ -17,8 +17,6 @@ export default function ComingSoon() {
 		getMovies();
 	}, []);
 
-	console.log(comingSoonMovies);
-
 	return (
 		<section className="relative px-17.5 overflow-hidden">
 			<div className="top-0 right-0 bottom-0 left-[80%] absolute bg-linear-to-l from-page to-transparent" />
