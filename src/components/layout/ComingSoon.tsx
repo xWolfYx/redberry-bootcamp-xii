@@ -58,7 +58,7 @@ function ComingSoonCard({ movie }) {
 				</div>
 				<div className="flex justify-between items-center mt-2.5">
 					<Button className="flex justify-center items-center bg-transparent px-3 py-1.5 border border-white text-[14px] text-white text-center capitalize">
-						<BellRing size={16} />
+						<BellRing size={14} />
 						Notify me
 					</Button>
 				</div>
