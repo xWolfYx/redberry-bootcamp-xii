@@ -51,18 +51,19 @@ function ComingSoonCard({ movie }) {
 						day: "numeric",
 					})}
 				</p>
+				<p className="mb-0.5 text-[12px]">{movie.title}</p>
 				<div className="flex flex-col">
-					<div className="flex gap-1 mb-1.75 text-[12px] text-secondary">
+					<div className="flex gap-1 mb-1.75 text-[12px] text-secondary text-semibold">
 						<p>{movie.genres[0].name}</p>
 						<span>·</span>
 						<p>{movie.runtimeMinutes} min</p>
 					</div>
-					<p className="self-start bg-tint-red px-1.75 py-0.5 rounded-full text-[12px] text-custom-red">
+					<p className="self-start bg-tint-red mb-4.5 px-2 py-0.5 rounded-full text-[12px] text-custom-red">
 						{movie.ageRating.code}
 					</p>
 				</div>
-				<div className="flex justify-between items-center mt-2.5">
-					<Button className="flex justify-center items-center bg-transparent px-3 py-1.5 border border-white text-[14px] text-white text-center capitalize">
+				<div className="flex justify-between items-center">
+					<Button className="flex justify-center items-center bg-transparent hover:bg-tint-white px-3 py-1.5 border border-white text-[11px] text-white text-center capitalize transition duration-150">
 						<BellRing size={14} />
 						Notify me
 					</Button>
