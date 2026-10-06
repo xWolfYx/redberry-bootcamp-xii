@@ -118,7 +118,7 @@ export default function Hero() {
 								/>
 							))}
 						</div>
-						<div className="flex *:flex *:justify-center *:items-center gap-2.5 *:bg-scrim *:p-0 *:size-13.5 *:text-white">
+						<div className="flex *:flex *:justify-center *:items-center gap-2.5 *:bg-scrim *:hover:bg-page *:p-0 *:size-13.5 *:text-white transition *:duration-350">
 							<Button>
 								<IoIosArrowBack size={34} />
 							</Button>
