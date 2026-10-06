@@ -6,9 +6,9 @@ export default function Home() {
 	return (
 		<main className="flex flex-col gap-10 w-full">
 			<Hero />
-			<hr className="text-raised" />
+			<hr className="text-app-raised" />
 			<NowPlaying />
-			<hr className="text-raised" />
+			<hr className="text-app-raised" />
 			<ComingSoon />
 		</main>
 	);

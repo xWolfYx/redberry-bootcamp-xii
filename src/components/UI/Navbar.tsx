@@ -10,7 +10,7 @@ export default function Navbar() {
 					to="/"
 					className="font-bold text-[20px] text-white uppercase tracking-wide"
 				>
-					Kino <span className="text-custom-red">XII</span>
+					Kino <span className="text-app-custom-red">XII</span>
 				</Link>
 				<Link
 					to="/sessions"
@@ -22,7 +22,7 @@ export default function Navbar() {
 			<div className="flex items-center gap-8">
 				<Search />
 				<div className="flex gap-3 *:text-nowrap">
-					<Button className="bg-custom-red text-white">Sign up</Button>
+					<Button className="bg-app-custom-red text-white">Sign up</Button>
 					<Button>Log in</Button>
 				</div>
 			</div>

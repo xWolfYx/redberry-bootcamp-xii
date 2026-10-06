@@ -1,25 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+@plugin "daisyui";
 
 @theme {
-	--color-scrim: rgba(7, 12, 28, 0.2);
-	--color-secondary: #a9a9a9;
-	--color-disabled: #505261;
+	--color-app-scrim: rgba(7, 12, 28, 0.2);
+	--color-app-secondary: #a9a9a9;
+	--color-app-disabled: #505261;
 
-	--color-card: #1e2031;
-	--color-page: #070c1c;
-	--color-raised: #2a2c3d;
+	--color-app-card: #1e2031;
+	--color-app-page: #070c1c;
+	--color-app-raised: #2a2c3d;
 
-	--color-tint-red: rgba(236, 48, 19, 0.1);
-	--color-tint-white: rgba(255, 255, 255, 0.1);
-	--color-tint-green: rgba(74, 222, 128, 0.1);
+	--color-app-tint-red: rgba(236, 48, 19, 0.1);
+	--color-app-tint-white: rgba(255, 255, 255, 0.1);
+	--color-app-tint-green: rgba(74, 222, 128, 0.1);
 
-	--color-custom-red: #ec3013;
-	--color-custom-green: #4ade80;
-	--color-custom-orange: #e27e04;
+	--color-app-custom-red: #ec3013;
+	--color-app-custom-green: #4ade80;
+	--color-app-custom-orange: #e27e04;
 }
 
 body {
 	font-family: "Archivo", sans-serif;
-	background-color: var(--color-page);
+	background-color: var(--color-app-page);
 }

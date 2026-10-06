@@ -57,23 +57,25 @@ export default function Hero() {
 					<div className="w-full h-190"></div>
 					<div className="absolute inset-0 bg-linear-to-r from-[rgba(0,0,0,0.8)] to-transparent" />
 					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145 animate-pulse">
-						<div className="bg-tint-red mb-3.75 rounded-full w-45 h-7"></div>
-						<div className="bg-tint-white mb-3.75 rounded-full w-70 h-12"></div>
+						<div className="bg-app-tint-red mb-3.75 rounded-full w-45 h-7"></div>
+						<div className="bg-app-tint-white mb-3.75 rounded-full w-70 h-12"></div>
 						<div className="flex gap-2 pb-5">
-							<div className="bg-tint-red rounded-full w-8 h-6"></div>
-							<div className="flex items-center gap-1 bg-tint-white rounded-full w-14 h-6"></div>
-							<div className="bg-tint-white rounded-full w-14 h-6"></div>
+							<div className="bg-app-tint-red rounded-full w-8 h-6"></div>
+							<div className="flex items-center gap-1 bg-app-tint-white rounded-full w-14 h-6"></div>
+							<div className="bg-app-tint-white rounded-full w-14 h-6"></div>
 						</div>
-						<div className="flex flex-col gap-2 *:bg-tint-white mb-5 *:rounded-full *:h-3.5">
+						<div className="flex flex-col gap-2 *:bg-app-tint-white mb-5 *:rounded-full *:h-3.5">
 							<div className="w-80"></div>
 							<div className="w-70"></div>
 							<div className="w-30"></div>
 						</div>
 						<div className="flex gap-2.5">
-							<Button className="bg-custom-red text-white">
+							<Button className="bg-app-custom-red text-white">
 								<TbTicket /> Buy tickets
 							</Button>
-							<Button className="bg-tint-white text-white">All sessions</Button>
+							<Button className="bg-app-tint-white text-white">
+								All sessions
+							</Button>
 						</div>
 					</div>
 				</>
@@ -89,7 +91,7 @@ export default function Hero() {
 
 					{/* Movie Info */}
 					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145 text-white">
-						<p className="bg-tint-red px-2.5 py-1.5 rounded-full font-bold text-[12px] text-custom-red uppercase">
+						<p className="bg-app-tint-red px-2.5 py-1.5 rounded-full font-bold text-[12px] text-custom-red uppercase">
 							Premiere·week of{" "}
 							{new Date(activeMovie?.releaseDate).toLocaleString("en-GB", {
 								month: "short",
@@ -100,16 +102,16 @@ export default function Hero() {
 							{activeMovie?.title}
 						</p>
 						<div className="flex gap-2 pb-5">
-							<p className="bg-tint-red px-3 py-1.5 rounded-full text-[12px] text-custom-red">
+							<p className="bg-app-tint-red px-3 py-1.5 rounded-full text-[12px] text-custom-red">
 								{activeMovie?.ageRating.code}
 							</p>
-							<p className="flex items-center gap-1 bg-tint-white px-3 py-1.5 rounded-full text-[12px]">
+							<p className="flex items-center gap-1 bg-app-tint-white px-3 py-1.5 rounded-full text-[12px]">
 								<Timer size={14} />
 								{activeMovie?.runtimeMinutes} Min
 							</p>
 							{activeMovie?.formats.map((format) => (
 								<p
-									className="bg-tint-white px-3 py-1.5 rounded-full text-[12px]"
+									className="bg-app-tint-white px-3 py-1.5 rounded-full text-[12px]"
 									key={format.id}
 								>
 									{format.name}
@@ -118,11 +120,11 @@ export default function Hero() {
 						</div>
 						<p className="mb-5 text-[14px]">{activeMovie?.synopsis}</p>
 						<div className="flex gap-2.5">
-							<Button className="bg-custom-red text-white">
+							<Button className="bg-app-custom-red text-white">
 								<TbTicketFilled size={16} className="-rotate-45" />
 								Buy tickets
 							</Button>
-							<Button className="bg-tint-white hover:bg-secondary text-white transition duration-150">
+							<Button className="bg-app-tint-white hover:bg-app-secondary text-white transition duration-150">
 								All sessions
 							</Button>
 						</div>
@@ -133,12 +135,12 @@ export default function Hero() {
 						<div className="flex gap-1.75 *:bg-white *:rounded-full w-full *:w-1/4 h-0.75 transition duration-300">
 							{featuredMovies.map((fm, i) => (
 								<div
-									className={i === activeIndex ? "bg-custom-red!" : ""}
+									className={i === activeIndex ? "bg-app-custom-red!" : ""}
 									key={fm.id}
 								/>
 							))}
 						</div>
-						<div className="flex *:flex *:justify-center *:items-center gap-2.5 *:bg-scrim *:hover:bg-page *:p-0 *:size-13.5 *:text-white transition *:duration-350">
+						<div className="flex *:flex *:justify-center *:items-center gap-2.5 *:bg-app-scrim *:hover:bg-app-page *:p-0 *:size-13.5 *:text-white transition *:duration-350">
 							<Button onClick={() => handlePrevMovie()}>
 								<IoIosArrowBack size={34} />
 							</Button>
