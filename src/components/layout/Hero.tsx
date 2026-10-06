@@ -1,5 +1,5 @@
 import { Timer } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbTicket, TbTicketFilled } from "react-icons/tb";
 import Button from "../UI/Button";
@@ -11,6 +11,7 @@ export default function Hero() {
 	const [activeIndex, setActiveIndex] = useState(0);
 
 	const activeMovie = featuredMovies[activeIndex];
+	const intervalRef = useRef(null);
 
 	useEffect(() => {
 		async function getMovies() {
@@ -23,11 +24,30 @@ export default function Hero() {
 
 	useEffect(() => {
 		if (!featuredMovies.length) return;
-		const interval = setInterval(() => {
+		intervalRef.current = setInterval(() => {
 			setActiveIndex((current) => (current + 1) % featuredMovies.length);
 		}, 5000);
-		return () => clearInterval(interval);
+		return () => clearInterval(intervalRef.current);
 	}, [featuredMovies]);
+
+	const resetTimer = () => {
+		clearTimeout(intervalRef.current);
+
+		intervalRef.current = setTimeout(() => {
+			setActiveIndex((current) => (current + 1) % featuredMovies.length);
+		}, 5000);
+	};
+
+	const handleNextMovie = () => {
+		setActiveIndex((curr) => (curr + 1) % featuredMovies.length);
+		resetTimer();
+	};
+	const handlePrevMovie = () => {
+		setActiveIndex(
+			(curr) => (curr - 1 + featuredMovies.length) % featuredMovies.length,
+		);
+		resetTimer();
+	};
 
 	return (
 		<section className="relative">
@@ -119,10 +139,10 @@ export default function Hero() {
 							))}
 						</div>
 						<div className="flex *:flex *:justify-center *:items-center gap-2.5 *:bg-scrim *:hover:bg-page *:p-0 *:size-13.5 *:text-white transition *:duration-350">
-							<Button>
+							<Button onClick={() => handlePrevMovie()}>
 								<IoIosArrowBack size={34} />
 							</Button>
-							<Button>
+							<Button onClick={() => handleNextMovie()}>
 								<IoIosArrowForward size={34} />
 							</Button>
 						</div>
