@@ -1,7 +1,7 @@
 import { Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { TbTicket, TbTicketFilled } from "react-icons/tb";
+import { TbTicketFilled } from "react-icons/tb";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
