@@ -51,31 +51,26 @@ export default function Hero() {
 
 	return (
 		<section className="relative">
-			{" "}
 			{featuredMovies.length === 0 ? (
 				<>
 					<div className="w-full h-190"></div>
 					<div className="absolute inset-0 bg-linear-to-r from-[rgba(0,0,0,0.8)] to-transparent" />
-					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145 animate-pulse">
-						<div className="bg-app-tint-red mb-3.75 rounded-full w-45 h-7"></div>
-						<div className="bg-app-tint-white mb-3.75 rounded-full w-70 h-12"></div>
+					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145">
+						<div className="bg-app-tint-red mb-3.75 rounded-full w-45 h-7 skeleton"></div>
+						<div className="bg-app-tint-white mb-3.75 rounded-full w-70 h-12 skeleton"></div>
 						<div className="flex gap-2 pb-5">
-							<div className="bg-app-tint-red rounded-full w-8 h-6"></div>
-							<div className="flex items-center gap-1 bg-app-tint-white rounded-full w-14 h-6"></div>
-							<div className="bg-app-tint-white rounded-full w-14 h-6"></div>
+							<div className="bg-app-tint-red rounded-full w-8 h-6 skeleton"></div>
+							<div className="flex items-center gap-1 bg-app-tint-white rounded-full w-14 h-6 skeleton"></div>
+							<div className="bg-app-tint-white rounded-full w-14 h-6 skeleton"></div>
 						</div>
 						<div className="flex flex-col gap-2 *:bg-app-tint-white mb-5 *:rounded-full *:h-3.5">
-							<div className="w-80"></div>
-							<div className="w-70"></div>
-							<div className="w-30"></div>
+							<div className="w-80 skeleton"></div>
+							<div className="w-70 skeleton"></div>
+							<div className="w-30 skeleton"></div>
 						</div>
 						<div className="flex gap-2.5">
-							<Button className="bg-app-custom-red text-white">
-								<TbTicket /> Buy tickets
-							</Button>
-							<Button className="bg-app-tint-white text-white">
-								All sessions
-							</Button>
+							<div className="rounded-full w-35 h-11.75 skeleton"></div>
+							<div className="rounded-full w-31 h-11.75 skeleton"></div>
 						</div>
 					</div>
 				</>
