@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Footer from "./components/layout/Footer.tsx";
 import Navbar from "./components/UI/Navbar.tsx";
 import Home from "./pages/HomePage.tsx";
+import Sessions from "./pages/SessionsPage.tsx";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root node doesn't exist");
@@ -18,6 +19,7 @@ createRoot(root).render(
 
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/sessions" element={<Sessions />} />
 			</Routes>
 
 			<Footer />
