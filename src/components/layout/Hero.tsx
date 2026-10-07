@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -6,75 +7,60 @@ import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
 
+async function getMovies() {
+	const res = await fetch(`${apiUrl}/movies/featured`);
+	const { data } = await res.json();
+
+	if (!res.ok) throw new Error(`Failed to fetch movies ${res.status}`);
+
+	return data;
+}
+
 export default function Hero() {
-	const [featuredMovies, setFeaturedMovies] = useState([]);
+	const { data, isPending, isError, error } = useQuery({
+		queryKey: ["heroMovies"],
+		queryFn: getMovies,
+	});
 	const [activeIndex, setActiveIndex] = useState(0);
 
-	const activeMovie = featuredMovies[activeIndex];
+	const activeMovie = !isPending && data[activeIndex];
 	const intervalRef = useRef(null);
 
 	useEffect(() => {
-		async function getMovies() {
-			const res = await fetch(`${apiUrl}/movies/featured`);
-			const { data } = await res.json();
-			setFeaturedMovies(data);
-		}
-		getMovies();
-	}, []);
-
-	useEffect(() => {
-		if (!featuredMovies.length) return;
+		if (isPending) return;
 		intervalRef.current = setInterval(() => {
-			setActiveIndex((current) => (current + 1) % featuredMovies.length);
+			setActiveIndex((current) => (current + 1) % data.length);
 		}, 5000);
 		return () => clearInterval(intervalRef.current);
-	}, [featuredMovies]);
+	}, [isPending, data]);
 
 	const resetTimer = () => {
 		clearTimeout(intervalRef.current);
 
 		intervalRef.current = setTimeout(() => {
-			setActiveIndex((current) => (current + 1) % featuredMovies.length);
+			setActiveIndex((current) => (current + 1) % data.length);
 		}, 5000);
 	};
 
 	const handleNextMovie = () => {
-		setActiveIndex((curr) => (curr + 1) % featuredMovies.length);
+		setActiveIndex((curr) => (curr + 1) % data.length);
 		resetTimer();
 	};
 	const handlePrevMovie = () => {
-		setActiveIndex(
-			(curr) => (curr - 1 + featuredMovies.length) % featuredMovies.length,
-		);
+		setActiveIndex((curr) => (curr - 1 + data.length) % data.length);
 		resetTimer();
 	};
 
 	return (
 		<section className="relative">
-			{featuredMovies.length === 0 ? (
+			{isPending && <HeroSkeleton />}
+			{isError && (
 				<>
-					<div className="w-full h-190"></div>
-					<div className="absolute inset-0 bg-linear-to-r from-[rgba(0,0,0,0.8)] to-transparent" />
-					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145">
-						<div className="bg-app-tint-red mb-3.75 rounded-full w-45 h-7 skeleton"></div>
-						<div className="bg-app-tint-white mb-3.75 rounded-full w-70 h-12 skeleton"></div>
-						<div className="flex gap-2 pb-5">
-							<div className="bg-app-tint-red rounded-full w-8 h-6 skeleton"></div>
-							<div className="flex items-center gap-1 bg-app-tint-white rounded-full w-14 h-6 skeleton"></div>
-							<div className="bg-app-tint-white rounded-full w-14 h-6 skeleton"></div>
-						</div>
-						<div className="flex flex-col gap-2 *:bg-app-tint-white mb-5 *:rounded-full *:h-3.5">
-							<div className="w-80 skeleton"></div>
-							<div className="w-70 skeleton"></div>
-							<div className="w-30 skeleton"></div>
-						</div>
-						<div className="flex gap-2.5">
-							<div className="rounded-full w-35 h-11.75 skeleton"></div>
-							<div className="rounded-full w-31 h-11.75 skeleton"></div>
-						</div>
-					</div>
+					<p className="text-white">Failed to load movies.</p>
+					<p className="text-app-secondary">{error.message}</p>
 				</>
-			) : (
+			)}
+			{!isPending && !isError && (
 				<>
 					<img
 						src={activeMovie?.backdropUrl}
@@ -128,7 +114,7 @@ export default function Hero() {
 					{/* Slider */}
 					<div className="bottom-10.5 left-1/2 absolute flex justify-around items-center gap-5 m-auto w-full max-w-[calc(100vw-67px*2)] h-2 -translate-1/2">
 						<div className="flex gap-1.75 *:bg-white *:rounded-full w-full *:w-1/4 h-0.75 transition duration-300">
-							{featuredMovies.map((fm, i) => (
+							{data.map((fm, i) => (
 								<div
 									className={i === activeIndex ? "bg-app-custom-red!" : ""}
 									key={fm.id}
@@ -147,5 +133,32 @@ export default function Hero() {
 				</>
 			)}
 		</section>
+	);
+}
+
+function HeroSkeleton() {
+	return (
+		<>
+			<div className="w-full h-190" />
+			<div className="absolute inset-0 bg-linear-to-r from-[rgba(0,0,0,0.8)] to-transparent" />
+			<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145">
+				<div className="bg-app-tint-red mb-3.75 rounded-full w-45 h-7 skeleton" />
+				<div className="bg-app-tint-white mb-3.75 rounded-full w-70 h-12 skeleton" />
+				<div className="flex gap-2 pb-5">
+					<div className="bg-app-tint-red rounded-full w-8 h-6 skeleton" />
+					<div className="flex items-center gap-1 bg-app-tint-white rounded-full w-14 h-6 skeleton" />
+					<div className="bg-app-tint-white rounded-full w-14 h-6 skeleton" />
+				</div>
+				<div className="flex flex-col gap-2 *:bg-app-tint-white mb-5 *:rounded-full *:h-3.5">
+					<div className="w-80 skeleton" />
+					<div className="w-70 skeleton" />
+					<div className="w-30 skeleton" />
+				</div>
+				<div className="flex gap-2.5">
+					<div className="rounded-full w-35 h-11.75 skeleton" />
+					<div className="rounded-full w-31 h-11.75 skeleton" />
+				</div>
+			</div>
+		</>
 	);
 }
