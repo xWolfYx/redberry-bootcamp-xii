@@ -6,12 +6,15 @@ async function getNowPlayingMovies() {
 	const res = await fetch(
 		`${import.meta.env.VITE_REDBERRY_API}/movies/now-playing`,
 	);
+
+	if (!res.ok) throw new Error(`Failed to fetch movies ${res.status}`);
+
 	const { data } = await res.json();
 	return data;
 }
 
 export default function NowPlaying() {
-	const { data, isPending, error } = useQuery({
+	const { data, isPending, isError, error } = useQuery({
 		queryKey: ["nowPlayingMovies"],
 		queryFn: getNowPlayingMovies,
 	});
@@ -28,14 +31,20 @@ export default function NowPlaying() {
 					See all
 				</Link>
 			</div>
+
 			<div className="flex *:flex-none items-start gap-4.25">
-				{isPending ? (
-					<NowPlayingMovieCardSkeleton />
-				) : (
-					data.map((movie) => (
-						<NowPlayingMovieCard movie={movie} key={movie.id} />
-					))
+				{isError && (
+					<>
+						<p className="text-white">Failed to load movies.</p>
+						<p className="text-app-secondary">{error.message}</p>
+					</>
 				)}
+				{isPending && <NowPlayingMovieCardSkeleton />}
+				{!isPending &&
+					!isError &&
+					data?.map((movie) => (
+						<NowPlayingMovieCard movie={movie} key={movie.id} />
+					))}
 			</div>
 		</section>
 	);
