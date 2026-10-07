@@ -1,4 +1,5 @@
 import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
@@ -10,19 +11,23 @@ import Sessions from "./pages/SessionsPage.tsx";
 const root = document.getElementById("root");
 if (!root) throw new Error("Root node doesn't exist");
 
+const queryClient = new QueryClient();
+
 createRoot(root).render(
 	<StrictMode>
-		<BrowserRouter>
-			<header className="z-1 absolute w-full">
-				<Navbar />
-			</header>
+		<QueryClientProvider client={queryClient}>
+			<BrowserRouter>
+				<header className="z-1 absolute w-full">
+					<Navbar />
+				</header>
 
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/sessions" element={<Sessions />} />
-			</Routes>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/sessions" element={<Sessions />} />
+				</Routes>
 
-			<Footer />
-		</BrowserRouter>
+				<Footer />
+			</BrowserRouter>
+		</QueryClientProvider>
 	</StrictMode>,
 );
