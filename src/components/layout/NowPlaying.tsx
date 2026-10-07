@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import Button from "../UI/Button";
 
-export default function NowPlaying() {
-	const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+async function getNowPlayingMovies() {
+	const res = await fetch(
+		`${import.meta.env.VITE_REDBERRY_API}/movies/now-playing`,
+	);
+	const { data } = await res.json();
+	return data;
+}
 
-	useEffect(() => {
-		async function getMovies() {
-			const res = await fetch(
-				`${import.meta.env.VITE_REDBERRY_API}/movies/now-playing`,
-			);
-			const { data } = await res.json();
-			setNowPlayingMovies(data);
-		}
-		getMovies();
-	}, []);
+export default function NowPlaying() {
+	const { data, isPending, error } = useQuery({
+		queryKey: ["nowPlayingMovies"],
+		queryFn: getNowPlayingMovies,
+	});
 
 	return (
 		<section className="relative px-17.5 overflow-hidden">
@@ -29,9 +29,13 @@ export default function NowPlaying() {
 				</Link>
 			</div>
 			<div className="flex *:flex-none items-start gap-4.25">
-				{nowPlayingMovies.map((movie) => (
-					<NowPlayingMovieCard movie={movie} key={movie.id} />
-				))}
+				{isPending ? (
+					<NowPlayingMovieCardSkeleton />
+				) : (
+					data.map((movie) => (
+						<NowPlayingMovieCard movie={movie} key={movie.id} />
+					))
+				)}
 			</div>
 		</section>
 	);
@@ -45,14 +49,14 @@ function NowPlayingMovieCard({ movie }) {
 				alt={movie.name}
 				className="flex-1 mb-2.5 rounded-[14px] w-full min-h-0 object-cover transition-[flex]"
 			/>
-			<p className="font-semibold text-[18px] 1.75">{movie.title}</p>
+			<p className="font-semibold text-[18px]">{movie.title}</p>
 			<div className="flex flex-col mb-3">
 				<div className="flex gap-1 mb-1.75 text-[12px] text-app-secondary">
 					<p>{movie.genres[0].name}</p>
 					<span>·</span>
 					<p>{movie.runtimeMinutes} min</p>
 				</div>
-				<p className="self-start bg-tint-red px-1.75 py-0.5 rounded-full text-[12px] text-app-custom-red">
+				<p className="self-start bg-app-tint-red px-1.75 py-0.5 rounded-full text-[12px] text-app-custom-red">
 					{movie.ageRating.code}
 				</p>
 			</div>
@@ -69,4 +73,26 @@ function NowPlayingMovieCard({ movie }) {
 			</div>
 		</div>
 	);
+}
+
+function NowPlayingMovieCardSkeleton() {
+	return Array.from({ length: 8 }).map((_, i) => (
+		<div
+			className="group flex flex-col bg-app-card p-3 rounded-[20px] w-65 h-113 skeleton"
+			key={i}
+		>
+			<div className="flex-1 mb-2.5 rounded-[14px] w-full object-cover skeleton" />
+			<div className="w-20 h-6 font-semibold skeleton" />
+			<div className="flex flex-col mb-3">
+				<div className="flex gap-1 mb-1.75 text-[12px] text-app-secondary">
+					<div className="mt-1 w-15 h-4 skeleton" />
+				</div>
+				<p className="self-start bg-app-tint-red px-1.75 py-0.5 rounded-full w-9 h-5 skeleton" />
+			</div>
+			<div className="flex justify-between items-center mt-2.5">
+				<div className="w-15 h-4 skeleton" />
+				<div className="w-15 h-4 skeleton" />
+			</div>
+		</div>
+	));
 }
