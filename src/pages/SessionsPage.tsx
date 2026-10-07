@@ -28,12 +28,7 @@ export default function Sessions() {
 				</p>
 			</div>
 			<SessionFilters filterData={data} isPending={isPending} />
-			<SessionsList
-				data={data}
-				isPending={isPending}
-				isError={isError}
-				error={error}
-			/>
+			<SessionsList sorts={data?.sorts} />
 		</main>
 	);
 }
