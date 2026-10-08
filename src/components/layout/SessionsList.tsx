@@ -2,12 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbTicketFilled } from "react-icons/tb";
+import { useSearchParams } from "react-router";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
 
-async function getSessions() {
-	const res = await fetch(`${apiUrl}/sessions`);
+async function getSessions({ queryKey }) {
+	const [_, queryString] = queryKey;
+	const url = `${apiUrl}/sessions?${queryString ? `${queryString}` : ""}`;
+	console.log(url);
+
+	const res = await fetch(url);
 
 	if (!res.ok) throw new Error(`Failed to filter options ${res.status}`);
 
@@ -16,28 +21,47 @@ async function getSessions() {
 }
 
 export default function SessionsList({ sorts }) {
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const currentSort = searchParams.get("sort") || "time_asc";
+
+	const setSortParam = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setSearchParams((prev) => {
+			prev.set("sort", e.target.value);
+			return prev;
+		});
+	};
+
 	const { data, isPending, isError, error } = useQuery({
-		queryKey: ["sessions"],
+		queryKey: ["sessions", searchParams.toString()],
 		queryFn: getSessions,
 	});
 
-	console.log(data);
-
-	return isPending ? (
-		<SessionsSkeleton />
-	) : (
+	return (
 		<div className="col-start-2 row-start-2 -row-end-1 font-semibold text-[14px]">
 			<div className="flex justify-between">
 				<p className="mb-6">
-					{data?.length > 0
-						? `Showing ${data.length} sessions`
-						: "No sessions found"}
+					{isPending ? (
+						<p>
+							Showing <span className="loading loading-infinity loading-xs" />{" "}
+							sessions
+						</p>
+					) : data?.length > 0 ? (
+						`Showing ${data.length} sessions`
+					) : (
+						"No sessions found"
+					)}
 				</p>
 				<div className="flex items-center gap-2">
 					<p className="text-[14px] text-app-secondary">Sort:</p>
-					<select className="h-full select-ghost select">
+					<select
+						className="h-full select-ghost select"
+						onChange={(e) => setSortParam(e)}
+					>
 						{sorts?.map((s) => (
-							<option key={s.id}>{s.label}</option>
+							<option key={s.id} value={s.id} selected={s.id === currentSort}>
+								{s.label}
+							</option>
 						))}
 					</select>
 				</div>
