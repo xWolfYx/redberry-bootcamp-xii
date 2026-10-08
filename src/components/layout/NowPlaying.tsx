@@ -76,7 +76,7 @@ function NowPlayingMovieCard({ movie }) {
 			</div>
 			<div className="flex justify-between items-center mt-2.5">
 				<p className="font-semibold text-[12px]">From ₾ {movie.fromPrice}</p>
-				<Button className="bg-custom-red px-5.5 py-1.75 text-[14px] text-white text-center capitalize">
+				<Button className="bg-app-custom-red px-5.5 py-1.75 text-[14px] text-white text-center capitalize">
 					Buy ticket
 				</Button>
 			</div>

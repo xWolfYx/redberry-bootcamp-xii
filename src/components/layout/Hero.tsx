@@ -72,7 +72,7 @@ export default function Hero() {
 
 					{/* Movie Info */}
 					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145 text-white">
-						<p className="bg-app-tint-red px-2.5 py-1.5 rounded-full font-bold text-[12px] text-custom-red uppercase">
+						<p className="bg-app-tint-red px-2.5 py-1.5 rounded-full font-bold text-[12px] text-app-custom-red uppercase">
 							Premiere·week of{" "}
 							{new Date(activeMovie?.releaseDate).toLocaleString("en-GB", {
 								month: "short",
@@ -83,7 +83,7 @@ export default function Hero() {
 							{activeMovie?.title}
 						</p>
 						<div className="flex gap-2 pb-5">
-							<p className="bg-app-tint-red px-3 py-1.5 rounded-full text-[12px] text-custom-red">
+							<p className="bg-app-tint-red px-3 py-1.5 rounded-full text-[12px] text-app-custom-red">
 								{activeMovie?.ageRating.code}
 							</p>
 							<p className="flex items-center gap-1 bg-app-tint-white px-3 py-1.5 rounded-full text-[12px]">
