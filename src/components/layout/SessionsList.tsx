@@ -68,9 +68,7 @@ export default function SessionsList({ sorts }) {
 			</div>
 			<ul className="flex flex-col gap-8">
 				{isPending ? (
-					<li>
-						<SessionCardSkeleton />
-					</li>
+					<SessionCardSkeleton />
 				) : (
 					data?.map(({ movie, sessions }, i: number) => (
 						<Fragment key={movie.id}>
