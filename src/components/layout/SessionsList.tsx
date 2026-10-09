@@ -10,7 +10,6 @@ const apiUrl = import.meta.env.VITE_REDBERRY_API;
 async function getSessions({ queryKey }) {
 	const [_, queryString] = queryKey;
 	const url = `${apiUrl}/sessions?${queryString ? `${queryString}` : ""}`;
-	console.log(url);
 
 	const res = await fetch(url);
 
@@ -43,7 +42,7 @@ export default function SessionsList({ sorts }) {
 				<p className="mb-6">
 					{isPending ? (
 						<>
-							Showing <span className="loading loading-infinity loading-xs" />{" "}
+							Showing <span className="loading loading-xs loading-infinity" />{" "}
 							sessions
 						</>
 					) : data?.length > 0 ? (
@@ -123,7 +122,7 @@ function MovieCard({ movie }) {
 function SessionCard({ session }) {
 	return (
 		<li className="flex flex-col gap-3.5">
-			<div className="items-between gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26">
+			<div className="items-between items-start gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26">
 				<p className="self-start font-bold text-[18px]">
 					{new Date(session.startsAt).toLocaleTimeString([], {
 						hour: "2-digit",
@@ -131,14 +130,14 @@ function SessionCard({ session }) {
 						hour12: false,
 					})}
 				</p>
-				<p className="flex justify-center items-center bg-app-raised rounded-full w-17 h-6 font-light text-[12px]">
+				<p className="flex justify-center items-center bg-app-raised px-2.5 py-1 rounded-full font-light text-[12px]">
 					{session.format.name}
 				</p>
 				<p className="font-light text-[12px] text-app-secondary">
 					{session.language.name}
 				</p>
 				<p
-					className={`flex justify-self-end items-center gap-1 font-light text-[12px] ${session.seatsLeft < 10 ? "text-app-custom-red" : "text-app-custom-green"}`}
+					className={`flex items-center gap-1 justify-self-end text-[12px] font-light ${session.seatsLeft < 10 ? "text-app-custom-red" : "text-app-custom-green"}`}
 				>
 					<TbTicketFilled size={12} className="-rotate-45" />
 					{session.seatsLeft} left
@@ -161,7 +160,7 @@ function SessionCardSkeleton() {
 				<div className="justify-self-start self-end bg-app-tint-red rounded-full w-8 h-5 skeleton" />
 				<div className="w-14 h-5 skeleton" />
 			</div>
-			<div className="flex flex gap-3.5">
+			<div className="flex gap-3.5">
 				{Array.from({ length: 5 }).map((_, i) => (
 					<div
 						className="gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26"
