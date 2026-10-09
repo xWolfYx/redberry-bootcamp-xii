@@ -68,21 +68,21 @@ export default function SessionsList({ sorts }) {
 				</div>
 			</div>
 			<ul className="flex flex-col gap-8">
-				{isPending ? (
-					<SessionCardSkeleton />
-				) : (
-					data?.map(({ movie, sessions }, i: number) => (
-						<Fragment key={movie.id}>
-							{i !== 0 && <hr className="text-app-raised" />}
-							<MovieCard movie={movie} />
-							<ul className="flex gap-3">
-								{sessions.map((s) => (
-									<SessionCard session={s} key={s.id} />
-								))}
-							</ul>
-						</Fragment>
-					))
-				)}
+				{isPending
+					? Array.from({ length: 3 }).map((_, i) => (
+							<SessionCardSkeleton key={i} />
+						))
+					: data?.map(({ movie, sessions }, i: number) => (
+							<Fragment key={movie.id}>
+								{i !== 0 && <hr className="text-app-raised" />}
+								<MovieCard movie={movie} />
+								<ul className="flex gap-3">
+									{sessions.map((s) => (
+										<SessionCard session={s} key={s.id} />
+									))}
+								</ul>
+							</Fragment>
+						))}
 			</ul>
 			<div className="flex *:flex justify-center *:justify-center items-center *:items-center gap-2.5 *:bg-app-card *:hover:bg-app-raised mt-13 *:p-0 *:size-10 *:text-white transition *:duration-350">
 				<Button className="">
@@ -98,26 +98,6 @@ export default function SessionsList({ sorts }) {
 				</Button>
 			</div>
 		</div>
-	);
-}
-
-function SessionsSkeleton() {
-	return (
-		<li className="col-start-2 row-start-2 -row-end-1 font-semibold text-[14px]">
-			<div className="flex justify-between">
-				<p>
-					Showing <span className="loading loading-infinity loading-xs" />{" "}
-					sessions
-				</p>
-				<div className="flex items-center gap-2">
-					<p className="text-[14px] text-app-secondary">Sort:</p>
-					<span className="skeleton skeleton-text">
-						Loading Sort options...
-					</span>
-				</div>
-			</div>
-			<div>Loading...</div>
-		</li>
 	);
 }
 
@@ -172,23 +152,30 @@ function SessionCard({ session }) {
 	);
 }
 
-// TODO: Finish the skeleton
 function SessionCardSkeleton() {
 	return (
-		<div className="flex flex-col gap-3.5">
+		<>
 			<div className="inline-grid self-start gap-x-4 gap-y-3 grid-cols-[auto_auto_auto] grid-rows-2">
-				<div className="row-start-1 -row-end-1 rounded-lg w-14 h-20" />
-				<div className="self-end" />
-				<p className="self-end bg-app-tint-red px-2 py-0.5 rounded-full" />
-				<div />
+				<div className="row-start-1 -row-end-1 rounded-lg w-14 h-20 skeleton" />
+				<div className="self-end w-30 h-6 skeleton" />
+				<div className="justify-self-start self-end bg-app-tint-red rounded-full w-8 h-5 skeleton" />
+				<div className="w-14 h-5 skeleton" />
 			</div>
-			<div className="grid grid-cols-2 grid-rows-3 bg-app-card p-3.75 rounded-2xl w-63 h-26">
-				<div className="" />
-				<p className="flex justify-center items-center bg-app-raised px-1.25 py-2.5 rounded-full"></p>
-				<div className="" />
-				<p className={`self-end`}></p>
-				<div className="" />
+			<div className="flex flex gap-3.5">
+				{Array.from({ length: 5 }).map((_, i) => (
+					<div
+						className="gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26"
+						key={i}
+					>
+						<div className="self-start w-14 h-5.5 skeleton" />
+						<div className="flex justify-center items-center bg-app-raised rounded-full w-17 h-6 skeleton" />
+						<div className="w-25 h-3.5 font-light skeleton" />
+						<div className="justify-self-end w-12 h-3.5 font-light skeleton" />
+						<div className="w-28 h-3.5 font-light skeleton" />
+						<div className="justify-self-end w-8 h-3.5 font-light skeleton" />
+					</div>
+				))}
 			</div>
-		</div>
+		</>
 	);
 }
