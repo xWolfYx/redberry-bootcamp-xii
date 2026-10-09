@@ -42,10 +42,10 @@ export default function SessionsList({ sorts }) {
 			<div className="flex justify-between">
 				<p className="mb-6">
 					{isPending ? (
-						<p>
+						<>
 							Showing <span className="loading loading-infinity loading-xs" />{" "}
 							sessions
-						</p>
+						</>
 					) : data?.length > 0 ? (
 						`Showing ${data.length} sessions`
 					) : (
