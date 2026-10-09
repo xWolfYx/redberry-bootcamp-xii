@@ -35,7 +35,7 @@ export default function Hero() {
 	}, [isPending, data]);
 
 	const resetTimer = () => {
-		clearTimeout(intervalRef.current);
+		clearInterval(intervalRef.current);
 
 		intervalRef.current = setTimeout(() => {
 			setActiveIndex((current) => (current + 1) % data.length);
