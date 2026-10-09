@@ -280,10 +280,10 @@ function TimeBand({ timeBands }) {
 							type="checkbox"
 							className="checked:bg-app-custom-red border-app-disabled checked:border-app-custom-red rounded-[5px] size-4.5 text-white checkbox checkbox-primary"
 							name={tb.label}
-							id={`timeband-${tb.id}`}
+							id={`time-band-${tb.id}`}
 						/>
 						<label
-							htmlFor={`timeband-${tb.id}`}
+							htmlFor={`time-band-${tb.id}`}
 							className="flex items-center gap-1.25 text-[14px] text-app-secondary"
 						>
 							<span className="text-[14px] text-white">
