@@ -56,10 +56,11 @@ export default function SessionsList({ sorts }) {
 					<p className="text-[14px] text-app-secondary">Sort:</p>
 					<select
 						className="h-full select-ghost select"
+						value={currentSort}
 						onChange={(e) => setSortParam(e)}
 					>
 						{sorts?.map((s) => (
-							<option key={s.id} value={s.id} selected={s.id === currentSort}>
+							<option key={s.id} value={s.id}>
 								{s.label}
 							</option>
 						))}
