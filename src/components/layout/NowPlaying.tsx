@@ -26,7 +26,7 @@ export default function NowPlaying() {
 			<div className="flex justify-between">
 				<p className="mb-6 font-bold text-white uppercase">Now playing</p>
 				<Link
-					to="#"
+					to="/sessions"
 					className="z-50 font-semibold text-[14px] text-app-custom-red"
 				>
 					See all

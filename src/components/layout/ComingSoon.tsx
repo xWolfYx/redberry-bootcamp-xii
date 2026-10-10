@@ -27,7 +27,7 @@ export default function ComingSoon() {
 			<div className="flex justify-between">
 				<p className="mb-6 font-bold text-white uppercase">Coming soon...</p>
 				<Link
-					to="#"
+					to="/sessions"
 					className="z-50 font-semibold text-[14px] text-app-custom-red"
 				>
 					See all
