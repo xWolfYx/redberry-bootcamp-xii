@@ -24,6 +24,13 @@ export default function SessionsList({ sorts }) {
 
 	const currentSort = searchParams.get("sort") || "time_asc";
 
+	const setSortParam = (value: string) => {
+		setSearchParams((prev) => {
+			const next = new URLSearchParams(prev);
+			next.set("sort", value);
+			return next;
+		});
+	};
 
 	const currentPage = Number(searchParams.get("page") || 1);
 
@@ -68,7 +75,7 @@ export default function SessionsList({ sorts }) {
 					<select
 						className="h-full select-ghost select"
 						value={currentSort}
-						onChange={(e) => setSortParam(e)}
+						onChange={(e) => setSortParam(e.target.value)}
 					>
 						{sorts?.map((s) => (
 							<option key={s.id} value={s.id}>
