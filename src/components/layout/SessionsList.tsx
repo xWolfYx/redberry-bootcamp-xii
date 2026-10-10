@@ -24,10 +24,14 @@ export default function SessionsList({ sorts }) {
 
 	const currentSort = searchParams.get("sort") || "time_asc";
 
-	const setSortParam = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+	const currentPage = Number(searchParams.get("page") || 1);
+
+	const setPage = (page: number) => {
 		setSearchParams((prev) => {
-			prev.set("sort", e.target.value);
-			return prev;
+			const next = new URLSearchParams(prev);
+			next.set("page", String(page));
+			return next;
 		});
 	};
 
@@ -35,6 +39,14 @@ export default function SessionsList({ sorts }) {
 		queryKey: ["sessions", searchParams.toString()],
 		queryFn: getSessions,
 	});
+
+	const lastPage = data?.meta.lastPage ?? 1;
+	const startPage = Math.max(1, currentPage - 2);
+	const endPage = Math.min(lastPage, currentPage + 2);
+	const visiblePages = Array.from(
+		{ length: endPage - startPage + 1 },
+		(_, i) => startPage + i,
+	);
 
 	return (
 		<div className="col-start-2 row-start-2 -row-end-1 font-semibold text-[14px]">
@@ -84,17 +96,53 @@ export default function SessionsList({ sorts }) {
 						))}
 			</ul>
 			<div className="flex *:flex justify-center *:justify-center items-center *:items-center gap-2.5 *:bg-app-card *:hover:bg-app-raised mt-13 *:p-0 *:size-10 *:text-white transition *:duration-350">
-				<Button className="">
-					<IoIosArrowBack size={13} />
-				</Button>
-				<Button className="bg-app-custom-red">1</Button>
-				<Button>2</Button>
-				<Button>3</Button>
-				<Button>...</Button>
-				<Button>10</Button>
-				<Button className="">
-					<IoIosArrowForward size={13} />
-				</Button>
+				{/* Pagination */}
+				{!isPending && (
+					<>
+						<Button
+							isDisabled={currentPage === 1}
+							onClick={() => setPage(currentPage - 1)}
+						>
+							<IoIosArrowBack size={13} />
+						</Button>
+
+						{visiblePages[0] > 1 && (
+							<>
+								<Button onClick={() => setPage(1)}>1</Button>
+								{visiblePages[0] > 2 && <span>...</span>}
+							</>
+						)}
+
+						{visiblePages.map((page) => (
+							<Button
+								key={page}
+								onClick={() => setPage(page)}
+								className={
+									currentPage === page
+										? "bg-app-custom-red!"
+										: "bg-transparent!"
+								}
+							>
+								{page}
+							</Button>
+						))}
+
+						{visiblePages[visiblePages.length - 1] < lastPage && (
+							<>
+								{visiblePages[visiblePages.length - 1] < lastPage - 1 && (
+									<span>...</span>
+								)}
+								<Button onClick={() => setPage(lastPage)}>{lastPage}</Button>
+							</>
+						)}
+						<Button
+							isDisabled={currentPage === data.meta.lastPage}
+							onClick={() => setPage(currentPage + 1)}
+						>
+							<IoIosArrowForward size={13} />
+						</Button>
+					</>
+				)}
 			</div>
 		</div>
 	);
