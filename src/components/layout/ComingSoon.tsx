@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { BellRing } from "lucide-react";
 import { Link } from "react-router";
-import type { Movie } from "../../api/movie";
+import type { Movie } from "../../api/movieTypes";
 import Button from "../UI/Button";
 
 async function getMovies(): Promise<Movie[]> {
