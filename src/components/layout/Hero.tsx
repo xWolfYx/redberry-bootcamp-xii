@@ -107,11 +107,17 @@ export default function Hero() {
 						</div>
 						<p className="mb-5 text-[14px]">{activeMovie?.synopsis}</p>
 						<div className="flex gap-2.5">
-							<Button className="bg-app-custom-red text-white">
+							<Button
+								href={`/movies/${activeMovie?.slug}`}
+								className="bg-app-custom-red text-white"
+							>
 								<TbTicketFilled size={16} className="-rotate-45" />
 								Buy tickets
 							</Button>
-							<Button className="bg-app-tint-white hover:bg-app-secondary text-white transition duration-150">
+							<Button
+								href="/sessions"
+								className="bg-app-tint-white hover:bg-app-secondary text-white transition duration-150"
+							>
 								All sessions
 							</Button>
 						</div>
