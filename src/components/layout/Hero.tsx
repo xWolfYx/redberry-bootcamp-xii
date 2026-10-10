@@ -3,16 +3,16 @@ import { Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbTicketFilled } from "react-icons/tb";
+import type { Movie } from "../../api/movie";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
 
-async function getMovies() {
+async function getMovies(): Promise<Movie[]> {
 	const res = await fetch(`${apiUrl}/movies/featured`);
-	const { data } = await res.json();
-
 	if (!res.ok) throw new Error(`Failed to fetch movies ${res.status}`);
 
+	const { data } = await res.json();
 	return data;
 }
 
@@ -23,30 +23,35 @@ export default function Hero() {
 	});
 	const [activeIndex, setActiveIndex] = useState(0);
 
-	const activeMovie = !isPending && data[activeIndex];
-	const intervalRef = useRef(null);
+	const activeMovie = !isPending && !isError ? data[activeIndex] : null;
+	const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	useEffect(() => {
-		if (isPending) return;
+		if (isPending || isError) return;
 		intervalRef.current = setInterval(() => {
 			setActiveIndex((current) => (current + 1) % data.length);
 		}, 5000);
-		return () => clearInterval(intervalRef.current);
-	}, [isPending, data]);
+		return () => {
+			if (intervalRef.current) clearInterval(intervalRef.current);
+		};
+	}, [data, isPending, isError]);
 
 	const resetTimer = () => {
-		clearInterval(intervalRef.current);
+		if (!data?.length) return;
+		if (intervalRef.current !== null) clearInterval(intervalRef.current);
 
-		intervalRef.current = setTimeout(() => {
+		intervalRef.current = setInterval(() => {
 			setActiveIndex((current) => (current + 1) % data.length);
 		}, 5000);
 	};
 
 	const handleNextMovie = () => {
+		if (!data?.length) return;
 		setActiveIndex((curr) => (curr + 1) % data.length);
 		resetTimer();
 	};
 	const handlePrevMovie = () => {
+		if (!data?.length) return;
 		setActiveIndex((curr) => (curr - 1 + data.length) % data.length);
 		resetTimer();
 	};
@@ -74,10 +79,11 @@ export default function Hero() {
 					<div className="bottom-44.75 left-16.75 absolute flex flex-col items-start w-145 text-white">
 						<p className="bg-app-tint-red px-2.5 py-1.5 rounded-full font-bold text-[12px] text-app-custom-red uppercase">
 							Premiere·week of{" "}
-							{new Date(activeMovie?.releaseDate).toLocaleString("en-GB", {
-								month: "short",
-								day: "numeric",
-							})}
+							{activeMovie?.releaseDate &&
+								new Date(activeMovie?.releaseDate).toLocaleString("ka-GE", {
+									month: "short",
+									day: "numeric",
+								})}
 						</p>
 						<p className="mb-3.75 font-bold text-[40px] uppercase">
 							{activeMovie?.title}
