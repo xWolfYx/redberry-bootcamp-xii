@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Footer from "./components/layout/Footer.tsx";
 import Navbar from "./components/UI/Navbar.tsx";
 import Home from "./pages/HomePage.tsx";
+import MovieDetails from "./pages/MovieDetails.tsx";
 import Sessions from "./pages/SessionsPage.tsx";
 import ScrollTop from "./utils/scrollTop.ts";
 
@@ -27,6 +28,7 @@ createRoot(root).render(
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/sessions" element={<Sessions />} />
+					<Route path="/movies/:id" element={<MovieDetails />} />
 				</Routes>
 
 				<Footer />
