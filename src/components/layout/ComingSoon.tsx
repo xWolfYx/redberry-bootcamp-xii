@@ -72,7 +72,7 @@ function ComingSoonCard({ movie }) {
 		<div className="flex justify-between gap-3.75 bg-app-card p-3 rounded-[20px] w-117.5 h-40 text-white">
 			<img
 				src={movie.posterUrl}
-				alt={movie.name}
+				alt={movie.title}
 				className="rounded-[14px] w-1/2 object-cover"
 			/>
 			<div className="w-50.5">
