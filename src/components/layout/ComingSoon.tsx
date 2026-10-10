@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { BellRing } from "lucide-react";
 import { Link } from "react-router";
+import type { Movie } from "../../api/movie";
 import Button from "../UI/Button";
 
-async function getMovies() {
+async function getMovies(): Promise<Movie[]> {
 	const res = await fetch(
 		`${import.meta.env.VITE_REDBERRY_API}/movies/coming-soon`,
 	);
@@ -19,6 +20,7 @@ export default function ComingSoon() {
 		queryKey: ["comingSoonMovies"],
 		queryFn: getMovies,
 	});
+
 	return (
 		<section className="relative mb-44.25 px-17.5 overflow-hidden">
 			<div className="top-0 right-0 bottom-0 left-[80%] absolute bg-linear-to-l from-app-page to-transparent" />
@@ -46,6 +48,7 @@ export default function ComingSoon() {
 		</section>
 	);
 }
+
 function ComingSoonCardSkeleton() {
 	return Array.from({ length: 8 }).map((_, i) => (
 		<div
@@ -67,7 +70,8 @@ function ComingSoonCardSkeleton() {
 		</div>
 	));
 }
-function ComingSoonCard({ movie }) {
+
+function ComingSoonCard({ movie }: { movie: Movie }) {
 	return (
 		<div className="flex justify-between gap-3.75 bg-app-card p-3 rounded-[20px] w-117.5 h-40 text-white">
 			<img
