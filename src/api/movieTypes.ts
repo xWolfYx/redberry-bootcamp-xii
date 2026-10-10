@@ -29,6 +29,54 @@ export type FilterData = {
 	holdMinutes: number;
 };
 
+export type MovieDetails = {
+	ageRating: AgeRating;
+	availableDates: string[];
+	backdropUrl: string;
+	cast: string;
+	director: string;
+	formats: Format[];
+	fromPrice: number;
+	genres: Genre[];
+	id: number;
+	isComingSoon: boolean;
+	isFeatured: boolean;
+	isNotified: boolean;
+	kind: string;
+	posterUrl: string;
+	releaseDate: string;
+	runtimeMinutes: number;
+	slug: string;
+	synopsis: string;
+	title: string;
+};
+
+export type MovieSessions = {
+	venue: Venue;
+	sessions: Session[];
+};
+
+type Session = {
+	id: number;
+	startsAt: string;
+	date: string;
+	time: string;
+	timeBand: TimeBand;
+	price: number;
+	seatsLeft: number;
+	isSoldOut: boolean;
+	hall: Hall;
+	venue: Venue;
+	format: Format;
+	language: Language;
+};
+
+type Hall = {
+	id: number;
+	name: string;
+	venue: Venue;
+};
+
 type AgeRating = {
 	code: string;
 	minAge: number;
