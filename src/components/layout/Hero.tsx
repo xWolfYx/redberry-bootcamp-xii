@@ -3,7 +3,7 @@ import { Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbTicketFilled } from "react-icons/tb";
-import type { Movie } from "../../api/movie";
+import type { Movie } from "../../api/movieTypes";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
