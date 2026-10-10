@@ -1,20 +1,55 @@
-export default function SessionFilters({ filterData, isPending }) {
+import type { Dispatch, SetStateAction } from "react";
+import { useSearchParams } from "react-router";
+import type {
+	FilterData,
+	Format as FormatType,
+	Language as LanguageType,
+	TimeBand as TimeBandType,
+	Venue as VenueType,
+} from "../../api/movie";
+import toggleArrayParam from "../../utils/toggleArrayParam";
+
+export default function SessionFilters({
+	filterData,
+	isPending,
+}: {
+	filterData: FilterData;
+	isPending: boolean;
+}) {
+	const [searchParams, setSearchParams] = useSearchParams();
+
 	return (
 		<>
 			{isPending ? (
 				<SessionFiltersSkeleton />
 			) : (
-				<div className="flex flex-col gap-6 row-start-2 -row-end-1 bg-app-card p-6 rounded-2xl w-[320px]">
+				<div className="flex flex-col gap-6 row-start-2 -row-end-1 bg-app-card mb-auto p-6 rounded-2xl w-[320px]">
 					<p className="mb-6 font-bold text-[18px]">Filters</p>
-					<Venues venues={filterData.venues} />
+					<Venues
+						venues={filterData?.venues}
+						searchParams={searchParams}
+						setSearchParams={setSearchParams}
+					/>
 					<hr className="text-app-raised" />
 					<Dates />
 					<hr className="text-app-raised" />
-					<Format formats={filterData.formats} />
+					<Format
+						formats={filterData?.formats}
+						searchParams={searchParams}
+						setSearchParams={setSearchParams}
+					/>
 					<hr className="text-app-raised" />
-					<Language languages={filterData.languages} />
+					<Language
+						languages={filterData?.languages}
+						searchParams={searchParams}
+						setSearchParams={setSearchParams}
+					/>
 					<hr className="text-app-raised" />
-					<TimeBand timeBands={filterData.timeBands} />
+					<TimeBand
+						timeBands={filterData?.timeBands}
+						searchParams={searchParams}
+						setSearchParams={setSearchParams}
+					/>
 					<hr className="text-app-raised" />
 					<p className="mt-15.25 text-[12px] text-app-secondary text-center">
 						0 filters active
@@ -29,6 +64,7 @@ function SessionFiltersSkeleton() {
 	return (
 		<div className="flex flex-col gap-6 row-start-2 -row-end-1 bg-app-card p-6 rounded-2xl w-[320px]">
 			<p className="mb-6 font-bold text-[18px]">Filters</p>
+
 			{/* Venue skeleton */}
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
 				Venue
@@ -52,6 +88,7 @@ function SessionFiltersSkeleton() {
 				</div>
 			</div>
 			<hr className="text-app-raised" />
+
 			{/* Date skeleton */}
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
 				Date
@@ -66,6 +103,7 @@ function SessionFiltersSkeleton() {
 				<div className="rounded-lg w-9.25 h-14 font-semibold text-[12px] skeleton" />
 			</div>
 			<hr className="text-app-raised" />
+
 			{/* Format skeleton */}
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
 				Format
@@ -95,6 +133,7 @@ function SessionFiltersSkeleton() {
 				</div>
 			</div>
 			<hr className="text-app-raised" />
+
 			{/* Language skeleton */}
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
 				Language
@@ -147,7 +186,21 @@ function SessionFiltersSkeleton() {
 	);
 }
 
-function Venues({ venues }) {
+function Venues({
+	venues,
+	searchParams,
+	setSearchParams,
+}: {
+	venues: VenueType[];
+	searchParams: URLSearchParams;
+	setSearchParams: Dispatch<SetStateAction<URLSearchParams>>;
+}) {
+	const toggleVenue = (slug: string, checked: boolean) => {
+		setSearchParams((prev: URLSearchParams) =>
+			toggleArrayParam(prev, "venues[]", slug, checked),
+		);
+	};
+
 	return (
 		<>
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
@@ -158,6 +211,9 @@ function Venues({ venues }) {
 					<li className="flex items-center gap-2.5" key={v.id}>
 						<input
 							type="checkbox"
+							value={v.slug}
+							checked={searchParams.getAll("venues[]").includes(v.slug)}
+							onChange={(e) => toggleVenue(v.slug, e.target.checked)}
 							className="checked:bg-app-custom-red border-app-disabled checked:border-app-custom-red rounded-[5px] size-4.5 text-white checkbox checkbox-primary"
 							name={v.name}
 							id={`venue-${v.id}`}
@@ -211,7 +267,21 @@ function Dates() {
 	);
 }
 
-function Format({ formats }) {
+function Format({
+	formats,
+	searchParams,
+	setSearchParams,
+}: {
+	formats: FormatType[];
+	searchParams: URLSearchParams;
+	setSearchParams: Dispatch<SetStateAction<URLSearchParams>>;
+}) {
+	const toggleFormat = (slug: string, checked: boolean) => {
+		setSearchParams((prev: URLSearchParams) =>
+			toggleArrayParam(prev, "formats[]", slug, checked),
+		);
+	};
+
 	return (
 		<>
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
@@ -222,6 +292,9 @@ function Format({ formats }) {
 					<li className="flex items-center gap-2.5" key={f.id}>
 						<input
 							type="checkbox"
+							value={f.slug}
+							checked={searchParams.getAll("formats[]").includes(f.slug)}
+							onChange={(e) => toggleFormat(f.slug, e.target.checked)}
 							className="checked:bg-app-custom-red border-app-disabled checked:border-app-custom-red rounded-[5px] size-4.5 text-white checkbox checkbox-primary"
 							name={f.name}
 							id={`format-${f.id}`}
@@ -239,7 +312,20 @@ function Format({ formats }) {
 	);
 }
 
-function Language({ languages }) {
+function Language({
+	languages,
+	searchParams,
+	setSearchParams,
+}: {
+	languages: LanguageType[];
+	searchParams: URLSearchParams;
+	setSearchParams: Dispatch<SetStateAction<URLSearchParams>>;
+}) {
+	const toggleLanguage = (slug: string, checked: boolean) => {
+		setSearchParams((prev: URLSearchParams) =>
+			toggleArrayParam(prev, "languages[]", slug, checked),
+		);
+	};
 	return (
 		<>
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
@@ -250,6 +336,9 @@ function Language({ languages }) {
 					<li className="flex items-center gap-2.5" key={l.id}>
 						<input
 							type="checkbox"
+							value={l.slug}
+							checked={searchParams.getAll("languages[]").includes(l.slug)}
+							onChange={(e) => toggleLanguage(l.slug, e.target.checked)}
 							className="checked:bg-app-custom-red border-app-disabled checked:border-app-custom-red rounded-[5px] size-4.5 text-white checkbox checkbox-primary"
 							name={l.name}
 							id={`language-${l.id}`}
@@ -267,7 +356,21 @@ function Language({ languages }) {
 	);
 }
 
-function TimeBand({ timeBands }) {
+function TimeBand({
+	timeBands,
+	searchParams,
+	setSearchParams,
+}: {
+	timeBands: TimeBandType[];
+	searchParams: URLSearchParams;
+	setSearchParams: Dispatch<SetStateAction<URLSearchParams>>;
+}) {
+	const toggleTimeBand = (slug: string, checked: boolean) => {
+		setSearchParams((prev: URLSearchParams) =>
+			toggleArrayParam(prev, "bands[]", slug, checked),
+		);
+	};
+
 	return (
 		<>
 			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
@@ -278,6 +381,9 @@ function TimeBand({ timeBands }) {
 					<li className="flex items-center gap-2.5" key={tb.id}>
 						<input
 							type="checkbox"
+							value={tb.id}
+							checked={searchParams.getAll("bands[]").includes(tb.id)}
+							onChange={(e) => toggleTimeBand(tb.id, e.target.checked)}
 							className="checked:bg-app-custom-red border-app-disabled checked:border-app-custom-red rounded-[5px] size-4.5 text-white checkbox checkbox-primary"
 							name={tb.label}
 							id={`time-band-${tb.id}`}
