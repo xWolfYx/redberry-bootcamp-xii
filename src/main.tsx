@@ -7,6 +7,7 @@ import Footer from "./components/layout/Footer.tsx";
 import Navbar from "./components/UI/Navbar.tsx";
 import Home from "./pages/HomePage.tsx";
 import Sessions from "./pages/SessionsPage.tsx";
+import ScrollTop from "./utils/scrollTop.ts";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root node doesn't exist");
@@ -17,6 +18,8 @@ createRoot(root).render(
 	<StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
+				<ScrollTop />
+
 				<header className="z-1 absolute w-full">
 					<Navbar />
 				</header>

@@ -20,6 +20,10 @@
 	--color-app-custom-orange: #e27e04;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: "Archivo", sans-serif;
 	background-color: var(--color-app-page);
