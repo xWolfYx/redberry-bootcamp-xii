@@ -55,7 +55,7 @@ function NowPlayingMovieCard({ movie }) {
 		<div className="group flex flex-col bg-app-card p-3 rounded-[20px] w-65 hover:w-111.75 h-113 text-white transition-[width] duration-400">
 			<img
 				src={movie.posterUrl}
-				alt={movie.name}
+				alt={movie.title}
 				className="flex-1 mb-2.5 rounded-[14px] w-full min-h-0 object-cover transition-[flex]"
 			/>
 			<p className="font-semibold text-[18px]">{movie.title}</p>
