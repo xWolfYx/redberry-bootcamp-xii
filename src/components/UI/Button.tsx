@@ -5,11 +5,13 @@ export default function Button({
 	children,
 	className,
 	href,
+	isDisabled,
 	onClick,
 }: {
 	children: string | React.ReactNode;
 	href?: string;
 	className?: string;
+	isDisabled?: boolean;
 	onClick?: () => void;
 }) {
 	const buttonStyles =
@@ -22,6 +24,7 @@ export default function Button({
 	) : (
 		<button
 			type="button"
+			disabled={isDisabled}
 			onClick={onClick}
 			className={twMerge(buttonStyles, className)}
 		>
