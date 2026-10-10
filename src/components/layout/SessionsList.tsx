@@ -178,13 +178,7 @@ function SessionCard({ session }) {
 	return (
 		<li className="flex flex-col gap-3.5">
 			<div className="items-between items-start gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26">
-				<p className="self-start font-bold text-[18px]">
-					{new Date(session.startsAt).toLocaleTimeString([], {
-						hour: "2-digit",
-						minute: "2-digit",
-						hour12: false,
-					})}
-				</p>
+				<p className="self-start font-bold text-[18px]">{session.time}</p>
 				<p className="flex justify-center items-center bg-app-raised px-2.5 py-1 rounded-full font-light text-[12px]">
 					{session.format.name}
 				</p>
