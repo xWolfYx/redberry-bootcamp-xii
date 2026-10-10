@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import type { Movie } from "../../api/movie";
 import Button from "../UI/Button";
 
-async function getNowPlayingMovies() {
+async function getNowPlayingMovies(): Promise<Movie[]> {
 	const res = await fetch(
 		`${import.meta.env.VITE_REDBERRY_API}/movies/now-playing`,
 	);
@@ -50,7 +51,7 @@ export default function NowPlaying() {
 	);
 }
 
-function NowPlayingMovieCard({ movie }) {
+function NowPlayingMovieCard({ movie }: { movie: Movie }) {
 	return (
 		<div className="group flex flex-col bg-app-card p-3 rounded-[20px] w-65 hover:w-111.75 h-113 text-white transition-[width] duration-400">
 			<img
