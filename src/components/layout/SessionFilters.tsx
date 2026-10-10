@@ -6,8 +6,9 @@ import type {
 	Language as LanguageType,
 	TimeBand as TimeBandType,
 	Venue as VenueType,
-} from "../../api/movie";
+} from "../../api/movieTypes";
 import toggleArrayParam from "../../utils/toggleArrayParam";
+import Dates from "../UI/Dates";
 
 export default function SessionFilters({
 	filterData,
@@ -31,6 +32,9 @@ export default function SessionFilters({
 						setSearchParams={setSearchParams}
 					/>
 					<hr className="text-app-raised" />
+					<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
+						Date
+					</p>
 					<Dates />
 					<hr className="text-app-raised" />
 					<Format
@@ -225,41 +229,6 @@ function Venues({
 							<span className="text-[14px] text-white">{v.name}</span>·
 							<span className="text-[12px]">{v.city}</span>
 						</label>
-					</li>
-				))}
-			</ul>
-		</>
-	);
-}
-
-function Dates() {
-	const dates = Array.from({ length: 7 }, (_, index) => {
-		const date = new Date();
-		date.setDate(date.getDate() + index);
-
-		return {
-			day: date.toLocaleDateString("en-US", { weekday: "short" }),
-			date: date.getDate(),
-			fullDate: date.toISOString().split("T")[0],
-		};
-	});
-
-	return (
-		<>
-			<p className="mb-3 font-semibold text-[12px] text-app-secondary uppercase">
-				Date
-			</p>
-
-			<ul className="flex items-start gap-3 overflow-hidden shrink-0">
-				{dates.map((date) => (
-					<li key={date.fullDate}>
-						<button
-							type="button"
-							className="flex flex-col justify-center items-center bg-app-raised px-1.5 py-2.75 rounded-lg w-9.25 font-semibold text-[12px]"
-						>
-							<span>{date.day}</span>
-							<span>{date.date}</span>
-						</button>
 					</li>
 				))}
 			</ul>
