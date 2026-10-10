@@ -9,7 +9,7 @@ const apiUrl = import.meta.env.VITE_REDBERRY_API;
 
 async function getSessions({ queryKey }) {
 	const [_, queryString] = queryKey;
-	const url = `${apiUrl}/sessions?${queryString ? `${queryString}` : ""}`;
+	const url = `${apiUrl}/sessions?${queryString}`;
 
 	const res = await fetch(url);
 
