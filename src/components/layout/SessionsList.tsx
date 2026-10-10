@@ -15,7 +15,7 @@ async function getSessions({ queryKey }) {
 
 	if (!res.ok) throw new Error(`Failed to filter options ${res.status}`);
 
-	const { data } = await res.json();
+	const data = await res.json();
 	return data;
 }
 
@@ -57,8 +57,8 @@ export default function SessionsList({ sorts }) {
 							Showing <span className="loading loading-xs loading-infinity" />{" "}
 							sessions
 						</>
-					) : data?.length > 0 ? (
-						`Showing ${data.length} sessions`
+					) : data && data.data.length > 0 ? (
+						`Showing ${data.data.length} sessions`
 					) : (
 						"No sessions found"
 					)}
@@ -83,7 +83,7 @@ export default function SessionsList({ sorts }) {
 					? Array.from({ length: 3 }).map((_, i) => (
 							<SessionCardSkeleton key={i} />
 						))
-					: data?.map(({ movie, sessions }, i: number) => (
+					: data.data?.map(({ movie, sessions }, i: number) => (
 							<Fragment key={movie.id}>
 								{i !== 0 && <hr className="text-app-raised" />}
 								<MovieCard movie={movie} />
