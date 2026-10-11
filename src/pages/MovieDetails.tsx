@@ -3,7 +3,6 @@ import { Timer } from "lucide-react";
 import { TbTicketFilled } from "react-icons/tb";
 import { useParams } from "react-router";
 import type {
-	Format,
 	MovieDetails as MovieDetailsType,
 	MovieSessions as MovieSessionsType,
 } from "../api/movieTypes";
@@ -41,7 +40,7 @@ async function getMovieSessions({
 export default function MovieDetails() {
 	const { id } = useParams<{ id: string }>();
 
-	const { data, isPending, isError, error } = useQuery({
+	const { data, isPending /* isError, error  */ } = useQuery({
 		queryKey: ["movieDetails", id],
 		queryFn: getMovieDetails,
 		enabled: !!id,
@@ -106,7 +105,7 @@ export default function MovieDetails() {
 }
 
 function MovieSessions({ id }: { id: string | undefined }) {
-	const { data, isPending, isError, error } = useQuery({
+	const { data, isPending /* isError, error  */ } = useQuery({
 		queryKey: ["movieSessions", id],
 		queryFn: getMovieSessions,
 	});
@@ -196,13 +195,15 @@ function MovieDescription({
 					<p className="font-semibold text-[12px] text-app-secondary uppercase">
 						Release date
 					</p>
-					<p className="font-semibold text-[14px]">
-						{new Date(description?.releaseDate).toLocaleString("en-GB", {
-							month: "long",
-							day: "numeric",
-							year: "numeric",
-						})}
-					</p>
+					{description?.releaseDate && (
+						<p className="font-semibold text-[14px]">
+							{new Date(description?.releaseDate).toLocaleString("en-GB", {
+								month: "long",
+								day: "numeric",
+								year: "numeric",
+							})}
+						</p>
+					)}
 				</li>
 				<li>
 					<p className="font-semibold text-[12px] text-app-secondary uppercase">
@@ -220,7 +221,7 @@ function MovieDescription({
 						₾ {description?.fromPrice}
 					</p>
 				</li>
-				{description?.ageRating.minAge >= 16 && (
+				{(description?.ageRating.minAge ?? 0) >= 16 && (
 					<div className="bg-app-custom-orange/10 px-3.25 py-1.5 rounded-xl text-app-custom-orange">
 						<p>Rating note</p>
 						<p className="flex gap-1.75">

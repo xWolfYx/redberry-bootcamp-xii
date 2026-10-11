@@ -3,14 +3,18 @@ import { Fragment } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { TbTicketFilled } from "react-icons/tb";
 import { useSearchParams } from "react-router";
+import type {
+	Movie,
+	Session,
+	SessionResponse,
+	Sort,
+} from "../../api/movieTypes";
 import Button from "../UI/Button";
 
 const apiUrl = import.meta.env.VITE_REDBERRY_API;
 
-async function getSessions({ queryKey }) {
-	const [_, queryString] = queryKey;
+async function getSessions(queryString: string): Promise<SessionResponse> {
 	const url = `${apiUrl}/sessions?${queryString}`;
-
 	const res = await fetch(url);
 
 	if (!res.ok) throw new Error(`Failed to filter options ${res.status}`);
@@ -19,7 +23,7 @@ async function getSessions({ queryKey }) {
 	return data;
 }
 
-export default function SessionsList({ sorts }) {
+export default function SessionsList({ sorts }: { sorts: Sort[] }) {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const currentSort = searchParams.get("sort") || "time_asc";
@@ -42,9 +46,9 @@ export default function SessionsList({ sorts }) {
 		});
 	};
 
-	const { data, isPending, isError, error } = useQuery({
+	const { data, isPending /* isError, error  */ } = useQuery({
 		queryKey: ["sessions", searchParams.toString()],
-		queryFn: getSessions,
+		queryFn: () => getSessions(searchParams.toString()),
 	});
 
 	const lastPage = data?.meta.lastPage ?? 1;
@@ -90,7 +94,7 @@ export default function SessionsList({ sorts }) {
 					? Array.from({ length: 3 }).map((_, i) => (
 							<SessionCardSkeleton key={i} />
 						))
-					: data.data?.map(({ movie, sessions }, i: number) => (
+					: data?.data.map(({ movie, sessions }, i: number) => (
 							<Fragment key={movie.id}>
 								{i !== 0 && <hr className="text-app-raised" />}
 								<MovieCard movie={movie} />
@@ -143,7 +147,7 @@ export default function SessionsList({ sorts }) {
 							</>
 						)}
 						<Button
-							isDisabled={currentPage === data.meta.lastPage}
+							isDisabled={currentPage === data?.meta.lastPage}
 							onClick={() => setPage(currentPage + 1)}
 						>
 							<IoIosArrowForward size={13} />
@@ -155,7 +159,7 @@ export default function SessionsList({ sorts }) {
 	);
 }
 
-function MovieCard({ movie }) {
+function MovieCard({ movie }: { movie: Movie }) {
 	return (
 		<div className="inline-grid self-start gap-x-4 gap-y-3 grid-cols-[auto_auto_auto] grid-rows-2">
 			<img
@@ -174,7 +178,7 @@ function MovieCard({ movie }) {
 	);
 }
 
-function SessionCard({ session }) {
+function SessionCard({ session }: { session: Session }) {
 	return (
 		<li className="flex flex-col gap-3.5">
 			<div className="items-between items-start gap-y-1.5 grid grid-cols-[1fr_auto] grid-rows-[auto_auto_auto] bg-app-card p-3.75 rounded-2xl w-63 h-26">
