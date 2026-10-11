@@ -109,14 +109,14 @@ export default function Hero() {
 						<div className="flex gap-2.5">
 							<Button
 								href={`/movies/${activeMovie?.slug}`}
-								className="bg-app-custom-red text-white"
+								className="bg-app-custom-red px-6 py-2.5 text-white"
 							>
 								<TbTicketFilled size={16} className="-rotate-45" />
 								Buy tickets
 							</Button>
 							<Button
 								href="/sessions"
-								className="bg-app-tint-white hover:bg-app-secondary text-white transition duration-150"
+								className="bg-app-tint-white hover:bg-app-secondary px-6 py-2.5 text-white transition duration-150"
 							>
 								All sessions
 							</Button>

@@ -22,8 +22,18 @@ export default function Navbar() {
 			<div className="flex items-center gap-8">
 				<Search />
 				<div className="flex gap-3 *:text-nowrap">
-					<Button className="bg-app-custom-red text-white">Sign up</Button>
-					<Button>Log in</Button>
+					<Button
+						className="bg-app-custom-red px-5.5 py-2.5 font-extrabold text-white"
+						onClick={openRegister}
+					>
+						Sign up
+					</Button>
+					<Button
+						onClick={openLogin}
+						className="bg-white px-6 py-2.5 font-extrabold"
+					>
+						Log in
+					</Button>
 				</div>
 			</div>
 		</nav>

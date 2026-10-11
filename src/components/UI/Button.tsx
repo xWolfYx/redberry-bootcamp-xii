@@ -15,7 +15,7 @@ export default function Button({
 	onClick?: () => void;
 }) {
 	const buttonStyles =
-		"flex items-center gap-2 bg-white px-5.5 py-3.25 rounded-full font-bold text-[14px] text-black cursor-pointer";
+		"flex items-center justify-center gap-2 bg-white rounded-full font-bold text-[14px] text-black cursor-pointer";
 
 	return href ? (
 		<Link to={href} className={twMerge(buttonStyles, className)}>
