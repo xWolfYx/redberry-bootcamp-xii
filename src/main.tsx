@@ -4,6 +4,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Footer from "./components/layout/Footer.tsx";
+import AuthModal from "./components/UI/AuthModal.tsx";
 import Navbar from "./components/UI/Navbar.tsx";
 import Home from "./pages/HomePage.tsx";
 import MovieDetails from "./pages/MovieDetails.tsx";
@@ -24,6 +25,8 @@ createRoot(root).render(
 				<header className="z-1 absolute w-full">
 					<Navbar />
 				</header>
+
+				<AuthModal />
 
 				<Routes>
 					<Route path="/" element={<Home />} />
