@@ -14,7 +14,7 @@ async function getFilterOptions() {
 }
 
 export default function Sessions() {
-	const { data, isPending, isError, error } = useQuery({
+	const { data, isPending /* isError, error */ } = useQuery({
 		queryKey: ["filterData"],
 		queryFn: getFilterOptions,
 	});

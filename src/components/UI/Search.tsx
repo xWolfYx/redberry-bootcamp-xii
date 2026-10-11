@@ -29,7 +29,7 @@ export default function Search() {
 
 	const query = search.trim();
 
-	const { data, isPending, isError, error } = useQuery({
+	const { data /* , isPending, isError, error */ } = useQuery({
 		queryKey: ["searchResults", query],
 		queryFn: searchMovies,
 		enabled: query.length > 0,
