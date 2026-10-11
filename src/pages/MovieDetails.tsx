@@ -47,7 +47,6 @@ export default function MovieDetails() {
 		enabled: !!id,
 	});
 
-	console.log(data);
 	return (
 		!isPending && (
 			<section>
