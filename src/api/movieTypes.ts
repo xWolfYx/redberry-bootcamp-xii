@@ -56,7 +56,7 @@ export type MovieSessions = {
 	sessions: Session[];
 };
 
-type Session = {
+export type Session = {
 	id: number;
 	startsAt: string;
 	date: string;
@@ -69,6 +69,11 @@ type Session = {
 	venue: Venue;
 	format: Format;
 	language: Language;
+};
+
+export type SessionResponse = {
+	data: { movie: Movie; sessions: Session[] }[];
+	meta: MetaType;
 };
 
 export type MetaType = {
