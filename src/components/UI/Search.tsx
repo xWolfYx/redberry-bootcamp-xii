@@ -47,7 +47,7 @@ export default function Search() {
 	console.log(data);
 
 	return (
-		<div className="relative">
+		<div className="*:z-20 relative">
 			<BlurWrapper isOpen={isSearchOpen} closeFn={closeSearch} />
 			<div className="relative">
 				<SearchIcon className="top-1/2 left-2 z-1 absolute size-3.5 text-white -translate-y-1/2" />
@@ -138,6 +138,7 @@ export default function Search() {
 								Search by title, director or cast
 							</p>
 							<Button
+								onClick={closeSearch}
 								href="/sessions"
 								className="bg-app-raised px-6 py-2.5 text-[14px] text-white"
 							>
