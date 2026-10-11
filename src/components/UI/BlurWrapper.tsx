@@ -10,7 +10,7 @@ export default function BlurWrapper({
 			<button
 				type="button"
 				onClick={closeFn}
-				className="fixed inset-0 bg-black/20 backdrop-blur-xs size-full"
+				className="z-10 fixed inset-0 bg-black/20 backdrop-blur-xs size-full"
 			/>
 		)
 	);
