@@ -71,6 +71,14 @@ type Session = {
 	language: Language;
 };
 
+export type MetaType = {
+	currentPage: number;
+	date: string;
+	lastPage: number;
+	perPage: number;
+	totalMovies: number;
+	totalSessions: number;
+};
 type Hall = {
 	id: number;
 	name: string;
@@ -108,7 +116,7 @@ export type TimeBand = {
 	label: string;
 };
 
-type Sort = {
+export type Sort = {
 	id: string;
 	label: string;
 };
