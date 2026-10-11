@@ -1,8 +1,12 @@
 import { Link } from "react-router";
+import { useAuthStore } from "../../store/authStore";
 import Button from "./Button";
 import Search from "./Search";
 
 export default function Navbar() {
+	const openLogin = useAuthStore((state) => state.openLogin);
+	const openRegister = useAuthStore((state) => state.openRegister);
+
 	return (
 		<nav className="flex justify-between items-center bg-linear-to-b from-black px-15 pt-7.5 pb-10">
 			<div className="flex items-center gap-9 font-bold text-nowrap">
