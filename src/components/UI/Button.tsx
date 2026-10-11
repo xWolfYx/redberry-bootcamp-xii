@@ -18,7 +18,11 @@ export default function Button({
 		"flex items-center justify-center gap-2 bg-white rounded-full font-bold text-[14px] text-black cursor-pointer";
 
 	return href ? (
-		<Link to={href} className={twMerge(buttonStyles, className)}>
+		<Link
+			to={href}
+			onClick={onClick}
+			className={twMerge(buttonStyles, className)}
+		>
 			{children}
 		</Link>
 	) : (
