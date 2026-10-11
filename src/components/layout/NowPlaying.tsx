@@ -27,7 +27,7 @@ export default function NowPlaying() {
 				<p className="mb-6 font-bold text-white uppercase">Now playing</p>
 				<Link
 					to="/sessions"
-					className="z-50 font-semibold text-[14px] text-app-custom-red"
+					className="relative font-semibold text-[14px] text-app-custom-red"
 				>
 					See all
 				</Link>

@@ -28,7 +28,7 @@ export default function ComingSoon() {
 				<p className="mb-6 font-bold text-white uppercase">Coming soon...</p>
 				<Link
 					to="/sessions"
-					className="z-50 font-semibold text-[14px] text-app-custom-red"
+					className="relative font-semibold text-[14px] text-app-custom-red"
 				>
 					See all
 				</Link>
