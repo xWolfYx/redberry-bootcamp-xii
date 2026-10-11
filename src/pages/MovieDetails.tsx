@@ -57,7 +57,7 @@ export default function MovieDetails() {
 						alt={data?.title}
 						className="w-full object-cover object-top"
 					/>
-					<div className="bottom-10.25 left-15 z-20 absolute flex gap-8.5">
+					<div className="bottom-10.25 left-15 absolute flex gap-8.5">
 						<img
 							src={data?.posterUrl}
 							alt={data?.title}
