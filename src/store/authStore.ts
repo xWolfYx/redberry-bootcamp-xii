@@ -5,6 +5,8 @@ type AuthStore = {
 	openLogin: () => void;
 	openRegister: () => void;
 	closeModal: () => void;
+	pendingAction: (() => void) | null;
+	setPendingAction: (action: (() => void) | null) => void;
 };
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -12,4 +14,6 @@ export const useAuthStore = create<AuthStore>((set) => ({
 	openLogin: () => set({ modal: "login" }),
 	openRegister: () => set({ modal: "register" }),
 	closeModal: () => set({ modal: null }),
+	pendingAction: null,
+	setPendingAction: (action) => set({ pendingAction: action }),
 }));
