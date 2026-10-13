@@ -3,12 +3,14 @@ import { twMerge } from "tailwind-merge";
 
 export default function Button({
 	children,
+	type,
 	className,
 	href,
 	isDisabled,
 	onClick,
 }: {
 	children: string | React.ReactNode;
+	type?: "button" | "submit" | "reset";
 	href?: string;
 	className?: string;
 	isDisabled?: boolean;
@@ -27,7 +29,7 @@ export default function Button({
 		</Link>
 	) : (
 		<button
-			type="button"
+			type={type || "button"}
 			disabled={isDisabled}
 			onClick={onClick}
 			className={twMerge(buttonStyles, className)}
